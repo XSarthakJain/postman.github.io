@@ -3,3 +3,11 @@
     padding:0;
     box-sizing: border-box;
 }
+
+#historySearch{
+    width:80%;
+    padding:8px 12px;
+    border:1px solid #E9ECEF;
+    border-radius: 25px;
+    outline: none;
+}
