@@ -4,9 +4,18 @@
     box-sizing: border-box;
 }
 
+.container-fluid{
+    margin-top:2em;
+}
+
+.alert p{
+    display:inline-block;
+}
+
 .leftSideDiv{
     padding:1em;
-    box-shadow: 1px 1px 3px 2px gray;
+    /* box-shadow: 1px 1px 3px 2px gray; */
+    border-right:1px solid #E9ECEF;
     height:77vh;
 }
 
@@ -82,4 +91,28 @@
 
 #JsonBox textarea,#yourResponse{
     padding:2em;
+}
+.historyLink{
+    height:40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.historyLink span{
+    padding:6px 8px;
+    display:inline-block;
+    cursor: pointer;
+    margin: 8px;
+    background-color: #E9ECEF;
+    border:1px solid gray;
+    border-radius: 25px;
+    overflow:hidden;
+}
+
+.clearAll{
+    float:right;
+}
+
+.clearAll:hover{
+    color:orange;
+    cursor: pointer;
 }

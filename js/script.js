@@ -3,6 +3,10 @@ let JsonBox = document.getElementById("JsonBox");
 // Initially paramterBox will hide
 parameterBox.style.display = "none";
 
+// Initially Alert Display none
+let alert = document.getElementsByClassName("alert")[0];
+alert.style.display = "none";
+
 let requestParameter = document.getElementById("requestParameter");
 requestParameter.addEventListener("change",()=>{
     if(requestParameter.value == "Json"){
@@ -61,18 +65,126 @@ paramsSubmission.addEventListener("click",()=>{
     let requestType = document.getElementById("requestType").value;
     let contentType = document.getElementById("requestParameter").value;
 
-    console.log(url,requestType,contentType);
+    // Save url in History 
+    if(url!=undefined){
+        let localStorageUrl = localStorage.getItem("urls");
+        if(localStorageUrl==null){       
+            temp = []   
+            localStorage.setItem("urls",JSON.stringify(temp));
+        }
+        
+        let localHistory = JSON.parse(localStorage.getItem("urls"))
+        localHistory.push(url);
+        localStorage.setItem("urls",JSON.stringify(localHistory));
+        let historyUrlSection = document.getElementById("historyUrlSection");
+        showHistory();
+
+        // Show History link in Text Box
+        let historyElement = document.getElementsByClassName("historyElement");
+        Array.from(historyElement).forEach((ele)=>{
+            ele.addEventListener("click",()=>{
+                let url = document.getElementById("url");
+                url.value = ele.innerText;
+            });
+        });
+
+    }
 
     // if content type is parameter
     if(contentType === "Parameter"){
         data = {}
         for(i=0;i<addParamsCount;i++){
-            key  = document.getElementById(`parameterKey${i}`).value;
-            value  = document.getElementById(`parameterValue${i}`).value;
-            data[key] = value;
+            if(document.getElementById(`parameterKey${i}`)){
+                key  = document.getElementById(`parameterKey${i}`).value;
+                value  = document.getElementById(`parameterValue${i}`).value;
+                data[key] = value;
+            }
         }
-        console.log(data);
+        data = JSON.stringify(data);
+        
+    }
+    else{
+        data = document.getElementById("requestJsonText").value;
+    }
+    
+    // Get Request
+    if(requestType == "GET"){
+        fetch(url).then((response)=>response.text()).then((data)=>{
+            document.getElementById("yourResponse").value = data;
+        });
+    }
+    else{
+        // Post Request
+        console.log("data",data);
+        params = {
+            method : "post",
+            headers : {
+                'Content-Type':'application/json'
+            },
+            body:data
+        }
+        fetch(`https://cors-anywhere.herokuapp.com/${url}`,params).then((response)=>{
+            return response.json();
+        }).then((data)=>{
+            document.getElementById("yourResponse").value=`${JSON.stringify(data)}`;
+        })
     }
 
 });
 
+// Show History
+let showHistory = ()=>{
+    let historyUrlSection = document.getElementById("historyUrlSection");
+    historyUrlSection.innerHTML = "";
+    let str="";
+    let historyUrl = JSON.parse(localStorage.getItem("urls"));
+    if(historyUrl){
+    Array.from(historyUrl).forEach((ele)=>{
+        str+=`<span class="historyElement">${ele}</span>`;
+        
+    });
+    let div = document.createElement("div");
+    div.className = "historyLink";
+    div.innerHTML = str;
+    historyUrlSection.append(div);
+    }
+}
+
+
+// Click Clear All
+let clearAll = document.getElementsByClassName("clearAll");
+clearAll[0].addEventListener("click",()=>{
+    localStorage.clear();
+    showHistory();
+    alert.classList.add("alert-success");
+    alert.firstElementChild.innerText = "Success : Clear history";
+    // alert.firstElementChild.nextElementSibling.innerText = "Clear History";
+    alert.style.display = "block";
+
+});
+
+// Search History
+let historySearch = document.getElementById("historySearch");
+let historyElement = document.getElementsByClassName("historyElement");
+historySearch.addEventListener("input",()=>{
+    Array.from(historyElement).forEach((ele)=>{
+        if((ele.innerText).toLowerCase().includes(historySearch.value.toLowerCase())){
+            ele.style.display = "block";
+        }
+        else{
+            ele.style.display = "none";
+        }
+    })
+})
+
+// Initially call Automatically
+showHistory();
+
+// Show History link in Text Box
+historyElement = document.getElementsByClassName("historyElement");
+Array.from(historyElement).forEach((ele)=>{
+    ele.addEventListener("click",()=>{
+        let url = document.getElementById("url");
+        url.value = ele.innerText;
+    });
+});
