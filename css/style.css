@@ -59,7 +59,8 @@
     float:right;
     padding:8px;
     border:1px solid #E9ECEF;
-    cursor: not-allowed;
+    cursor: pointer;
+    
 }
 
 .contentTypeSection{
@@ -116,3 +117,20 @@
     color:orange;
     cursor: pointer;
 }
+
+footer{
+    background-color: #E9ECEF;
+    padding:6px 0;
+    vertical-align: middle;
+    width:100%;
+    text-align: center;
+    color:gray;
+    margin:0;
+    font-weight: bold;
+    font-size: small;
+}
+
+footer p{
+    margin-bottom:0;
+}
+

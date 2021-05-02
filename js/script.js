@@ -65,8 +65,8 @@ paramsSubmission.addEventListener("click",()=>{
     let requestType = document.getElementById("requestType").value;
     let contentType = document.getElementById("requestParameter").value;
 
-    // Save url in History 
     if(url!=undefined){
+    // Save url in History 
         let localStorageUrl = localStorage.getItem("urls");
         if(localStorageUrl==null){       
             temp = []   
@@ -88,7 +88,7 @@ paramsSubmission.addEventListener("click",()=>{
             });
         });
 
-    }
+    
 
     // if content type is parameter
     if(contentType === "Parameter"){
@@ -109,27 +109,48 @@ paramsSubmission.addEventListener("click",()=>{
     
     // Get Request
     if(requestType == "GET"){
+        // add paramter along with url
+        if(data){
+        data = JSON.parse(data);
+        url +="?";
+        for(key in data){
+            url+=`${key}=${data[key]}&`;
+        }
+        if(url.endsWith("&")){
+            url = url.slice(0,-1);
+        }}
+        console.log("Url ======= ",url);
+
         fetch(url).then((response)=>response.text()).then((data)=>{
             document.getElementById("yourResponse").value = data;
+        }).catch((ele)=>{
+            alert.classList.add("alert-danger");
+            alert.firstElementChild.innerText = "Error : Something went wrong";
+            alert.style.display = "block";
         });
     }
     else{
         // Post Request
-        console.log("data",data);
+        console.log("data",data,url);
         params = {
             method : "post",
             headers : {
-                'Content-Type':'application/json'
+                'Content-Type':'application/json; charset=UTF-8'
             },
             body:data
         }
-        fetch(`https://cors-anywhere.herokuapp.com/${url}`,params).then((response)=>{
+        fetch(url,params).then((response)=>{
             return response.json();
         }).then((data)=>{
             document.getElementById("yourResponse").value=`${JSON.stringify(data)}`;
-        })
+        }).catch((ele)=>{
+            alert.classList.add("alert-danger");
+            alert.firstElementChild.innerText = "Error : Something went wrong";
+            alert.style.display = "block";
+        });
     }
-
+    }
+    
 });
 
 // Show History
