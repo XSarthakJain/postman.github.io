@@ -72,13 +72,14 @@
 
 #parameterBox .row .col-lg-5,#parameterBox .row .col-lg-2{
     padding:2px;
+    margin:8px 0;
 }
 
-#JsonBox{
+#JsonBox,.result{
     margin:1em 0;
     width:80%;
 }
 
-#JsonBox textarea{
+#JsonBox textarea,#yourResponse{
     padding:2em;
 }

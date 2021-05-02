@@ -36,7 +36,7 @@
             </div>
             <div class="col-lg-9 col-md-9 col-sm-12 col-12 order-1 order-lg-2">
                 <div class="rightSideDiv">
-                    <select>
+                    <select id="requestType">
                         <option>GET</option>
                         <option>POST</option>
                     </select>
@@ -47,7 +47,7 @@
                 <div class="contentTypeSection">
                 <label>Content-Type</label>
                 <br>
-                <select>
+                <select id="requestParameter">
                     <option>Json</option>
                     <option>Parameter</option>
                 </select>
@@ -63,9 +63,12 @@
                             <input type="text" class="form-control" placeholder="value" id="parameterValue1">
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-2">
-                            <button class="btn btn-primary" id="parameterSubmission1">+</button>
+                            <button class="btn btn-primary" id="addParameter1">+</button>
                         </div>
                     </div>
+
+                    <!-- Add more Parameter div -->
+                    <div id="moreParameter"></div>
                 </div>
 
                 <!-- Json Box -->
@@ -73,6 +76,10 @@
                             <textarea class="form-control" placeholder="Json" id="requestJsonText"></textarea>
                 </div>
 
+                <!-- Result Show -->
+                <div class="result">
+                    <textarea class="form-control" placeholder="your response" id="yourResponse"></textarea>
+                </div>
 
             </div>
         </div>
