@@ -4,10 +4,81 @@
     box-sizing: border-box;
 }
 
+.leftSideDiv{
+    padding:1em;
+    box-shadow: 1px 1px 3px 2px gray;
+    height:77vh;
+}
+
 #historySearch{
     width:80%;
     padding:8px 12px;
     border:1px solid #E9ECEF;
     border-radius: 25px;
     outline: none;
+}
+
+.historyTitle{
+    color:gray;
+    padding:8px;
+}
+
+#historyUrlSection{
+    overflow-y: auto;
+}
+
+.rightSideDiv{
+    width:100%;
+    display:inline-block;
+    border:2px solid #E9ECEF;
+}
+
+.rightSideDiv select{
+    padding:8px;
+    border:1px solid #E9ECEF;
+    border:none;
+}
+
+.rightSideDiv input[type=url]{
+    outline: none;
+    width:40%;
+    padding:8px;
+    border:none;
+}
+
+.rightSideDiv button{
+    float:right;
+    padding:8px;
+    border:1px solid #E9ECEF;
+    cursor: not-allowed;
+}
+
+.contentTypeSection{
+    padding:1em;
+}
+
+.contentTypeSection label{
+    color:gray;
+    font-size: small;
+}
+
+.contentTypeSection select{
+    padding:4px 18px;
+    border:1px solid #E9ECEF;
+    outline: none;
+    color:gray;
+    font-size: small;
+}
+
+#parameterBox .row .col-lg-5,#parameterBox .row .col-lg-2{
+    padding:2px;
+}
+
+#JsonBox{
+    margin:1em 0;
+    width:80%;
+}
+
+#JsonBox textarea{
+    padding:2em;
 }
