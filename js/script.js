@@ -23,7 +23,7 @@ function connversionStringtoDOM(string){
 }
 
 // if the user click on + button than add new parameter box
-let addParamsCount = 0;
+let addParamsCount = 1;
 let addParameter1 = document.getElementById("addParameter1");
 addParameter1.addEventListener("click",()=>{
     param = document.getElementById("moreParameter");
@@ -48,9 +48,31 @@ addParameter1.addEventListener("click",()=>{
             e.target.parentElement.parentElement.remove();
         })
     }
-
-
     addParamsCount ++;
-    
+});
+
+// if the user click on submit button
+let paramsSubmission = document.getElementById("paramsSubmission");
+paramsSubmission.addEventListener("click",()=>{
+    let yourResponseult = document.getElementById("yourResponse");
+    yourResponse.innerText = "please wait.....";
+
+    let url = document.getElementById("url").value;
+    let requestType = document.getElementById("requestType").value;
+    let contentType = document.getElementById("requestParameter").value;
+
+    console.log(url,requestType,contentType);
+
+    // if content type is parameter
+    if(contentType === "Parameter"){
+        data = {}
+        for(i=0;i<addParamsCount;i++){
+            key  = document.getElementById(`parameterKey${i}`).value;
+            value  = document.getElementById(`parameterValue${i}`).value;
+            data[key] = value;
+        }
+        console.log(data);
+    }
+
 });
 
