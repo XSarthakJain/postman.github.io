@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+.navbar-brand a{
+    float:right;
+}
+
 .container-fluid{
     margin-top:2em;
 }
