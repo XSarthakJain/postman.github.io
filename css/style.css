@@ -150,3 +150,6 @@ footer p{
     margin-bottom:0;
 }
 
+.result small{
+    color:gray;
+}

@@ -123,6 +123,7 @@ paramsSubmission.addEventListener("click",()=>{
 
         fetch(url).then((response)=>response.text()).then((data)=>{
             document.getElementById("yourResponse").value = data;
+            download("postman.json",data);
         }).catch((ele)=>{
             alert.classList.add("alert-danger");
             alert.firstElementChild.innerText = "Error : Something went wrong";
@@ -143,6 +144,7 @@ paramsSubmission.addEventListener("click",()=>{
             return response.json();
         }).then((data)=>{
             document.getElementById("yourResponse").value=`${JSON.stringify(data)}`;
+            download("postman.json",`${JSON.stringify(data)}`);
         }).catch((ele)=>{
             alert.classList.add("alert-danger");
             alert.firstElementChild.innerText = "Error : Something went wrong";
@@ -209,3 +211,14 @@ Array.from(historyElement).forEach((ele)=>{
         url.value = ele.innerText;
     });
 });
+
+// Download File
+let download = (filename,text)=>{
+    var element = document.createElement("a");
+    element.style.display = "none";
+    element.setAttribute("href","data:text/plain;charset=utf-8,"+encodeURIComponent(text));
+    element.setAttribute("download",filename);
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
