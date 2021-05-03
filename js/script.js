@@ -119,12 +119,12 @@ paramsSubmission.addEventListener("click",()=>{
         if(url.endsWith("&")){
             url = url.slice(0,-1);
         }}
-        console.log("Url ======= ",url);
+        
 
         fetch(url).then((response)=>response.text()).then((data)=>{
             document.getElementById("yourResponse").value = data;
-            download("postman.json",data);
         }).catch((ele)=>{
+            alert.classList.remove("alert-success");
             alert.classList.add("alert-danger");
             alert.firstElementChild.innerText = "Error : Something went wrong";
             alert.style.display = "block";
@@ -132,7 +132,7 @@ paramsSubmission.addEventListener("click",()=>{
     }
     else{
         // Post Request
-        console.log("data",data,url);
+        
         params = {
             method : "post",
             headers : {
@@ -144,8 +144,8 @@ paramsSubmission.addEventListener("click",()=>{
             return response.json();
         }).then((data)=>{
             document.getElementById("yourResponse").value=`${JSON.stringify(data)}`;
-            download("postman.json",`${JSON.stringify(data)}`);
         }).catch((ele)=>{
+            alert.classList.remove("alert-success");
             alert.classList.add("alert-danger");
             alert.firstElementChild.innerText = "Error : Something went wrong";
             alert.style.display = "block";
@@ -179,9 +179,9 @@ let clearAll = document.getElementsByClassName("clearAll");
 clearAll[0].addEventListener("click",()=>{
     localStorage.clear();
     showHistory();
+    alert.classList.remove("alert-danger");
     alert.classList.add("alert-success");
     alert.firstElementChild.innerText = "Success : Clear history";
-    // alert.firstElementChild.nextElementSibling.innerText = "Clear History";
     alert.style.display = "block";
 
 });
@@ -222,3 +222,13 @@ let download = (filename,text)=>{
     element.click();
     document.body.removeChild(element);
 }
+
+// downloadResponseTrigger 
+
+let downloadResponseTrigger = document.getElementById("downloadResponseTrigger");
+downloadResponseTrigger.addEventListener("click",()=>{
+    let yourResponse = document.getElementById("yourResponse").value;
+    if(yourResponse){
+        download("postman.json",yourResponse);
+    }
+});

@@ -153,3 +153,7 @@ footer p{
 .result small{
     color:gray;
 }
+
+.result a{
+    text-decoration: none;
+}
